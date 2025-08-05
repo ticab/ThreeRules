@@ -1,0 +1,41 @@
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+UserSettings/
+MemoryCaptures/
+
+.vs/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.db
+*.opendb
+
+# OS/system files
+.DS_Store
+*.swp
+*.bak
+*.old
+
+# Built files and packages
+*.apk
+*.aab
+*.zip
+*.rar
+*.7z
+*.exe
+*.unitypackage
+
+# Rider / JetBrains
+.idea/
