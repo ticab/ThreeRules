@@ -9,21 +9,38 @@ public class HandManager : MonoBehaviour
     public Transform handTransform;
     private float fanSpread = -7.5f;
     private float cardSpacing = 200f;
-    private float verticalSpacing = 100f;
-    public List<GameObject> cardsInHand = new List<GameObject>();
+    private float verticalSpacing = 70f;
+    private List<GameObject> cardsInHand = new List<GameObject>();
     
     void Start()
     {
-        for(int i = 0; i < 6; i++)
-             AddCardHand();
-
-        UpdateHandVisuals();
     }
 
-    private void AddCardHand()
+    public bool AddCardHand()
     {
+        if(cardsInHand.Count == 6)
+            return false;
+
         GameObject newCard = Instantiate(cardPrefab, handTransform.position, Quaternion.identity, handTransform);
+        CardDisplay cardComponent = newCard.GetComponent<CardDisplay>();
+        if (cardComponent != null)
+        {
+            cardComponent.ChangeColor(true);
+            cardComponent.setIsDragabble(true);
+        }
+        else
+        {
+            Debug.LogWarning("Card component not found on the instantiated prefab.");
+        }
+
         cardsInHand.Add(newCard);
+        UpdateHandVisuals();
+        return true;
+    }
+
+    public void RemoveCard(GameObject card)
+    {
+        cardsInHand.Remove(card);
     }
     private void UpdateHandVisuals()
     {
