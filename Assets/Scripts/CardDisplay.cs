@@ -24,7 +24,7 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler, IBeginDragHandle
     private Transform originalParent;
     private Vector2 originalPosition;
 
-    private bool isDragable = false;
+    private bool isDraggable = false;
 
     private List<Color> colors = new List<Color>
     {
@@ -64,10 +64,12 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler, IBeginDragHandle
         }
     }
 
-    public void setIsDragabble(bool isDragabble)
+    public void setIsDraggable(bool isDraggable)
     {
-        this.isDragable = isDragabble;
+        this.isDraggable = isDraggable;
     }
+
+    public bool IsDraggable => isDraggable;
 
     public void ChangeColor(bool random)
     {
@@ -95,7 +97,7 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler, IBeginDragHandle
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (isDragable)
+        if (isDraggable)
         {
             transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
             canvasGroup.blocksRaycasts = false;
@@ -108,13 +110,13 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler, IBeginDragHandle
 
     public void OnDrag(PointerEventData eventData)
     {
-        if(isDragable)
+        if(isDraggable)
             rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (!isDragable) return;
+        if (!isDraggable) return;
 
         canvasGroup.blocksRaycasts = true;
         if (transform.parent == canvas.transform)
@@ -122,5 +124,10 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler, IBeginDragHandle
             transform.SetParent(originalParent);
             rectTransform.localPosition = originalPosition;
         }
+    }
+    
+    public CardType getCardType()
+    {
+        return cardData.cardType;
     }
 }

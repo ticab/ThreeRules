@@ -5,18 +5,17 @@ public class TrainManager : MonoBehaviour
 {
     public GameObject cardPrefab;
     public Transform trainTransform;
-    private float cardSpacing = 180f;
+    private float cardSpacing = 150f;
     private List<GameObject> cardsInTrain = new List<GameObject>();
 
     void Start()
     {
         for (int i = 0; i < 3; i++)
-            AddCardHand();
-
+            AddCard();
         UpdateHandVisuals();
     }
 
-    private void AddCardHand()
+    public void AddCard()
     {
         GameObject newCard = Instantiate(cardPrefab, trainTransform.position, Quaternion.identity, trainTransform);
         CardDisplay cardComponent = newCard.GetComponent<CardDisplay>();
@@ -29,22 +28,37 @@ public class TrainManager : MonoBehaviour
             Debug.LogWarning("Card component not found on the instantiated prefab.");
         }
         cardsInTrain.Add(newCard);
+
+        UpdateHandVisuals();
     }
     private void UpdateHandVisuals()
     {
         int cardCount = cardsInTrain.Count;
 
-        if (cardCount == 1)
+        Debug.Log("hor");
+        for (int i = cardCount - 1; i >=0; i--)
         {
-            cardsInTrain[0].transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-            cardsInTrain[0].transform.localPosition = new Vector3(0f, 0f, 0f);
-            return;
+            float horizontalOffset = (cardSpacing * (i - (cardCount - 1) / 2f ) );
+            Debug.Log(i.ToString() + " -> " + horizontalOffset);
+            cardsInTrain[i].transform.localPosition = new Vector3(horizontalOffset, 0f, 0f); 
+            cardsInTrain[i].transform.SetSiblingIndex(cardCount - 1 - i);
         }
+    }
 
-        for (int i = 0; i < cardCount; i++)
+    public GameObject GetFirstCard()
+    {
+        if(cardsInTrain.Count > 0)
+            return cardsInTrain[0];
+        
+        return null;
+    }
+
+    public void RemoveCard(GameObject card)
+    {
+        if (cardsInTrain.Count > 0)
         {
-            float horizontalOffset = (cardSpacing * (i - (cardCount - 1) / 2f));
-            cardsInTrain[i].transform.localPosition = new Vector3(horizontalOffset, 0f, 0f);
+            cardsInTrain.Remove(card);
+            UpdateHandVisuals();
         }
     }
 }

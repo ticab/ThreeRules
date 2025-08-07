@@ -26,7 +26,7 @@ public class HandManager : MonoBehaviour
         if (cardComponent != null)
         {
             cardComponent.ChangeColor(true);
-            cardComponent.setIsDragabble(true);
+            cardComponent.setIsDraggable(true);
         }
         else
         {
