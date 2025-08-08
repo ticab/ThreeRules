@@ -11,10 +11,6 @@ public class HandManager : MonoBehaviour
     private float cardSpacing = 200f;
     private float verticalSpacing = 70f;
     private List<GameObject> cardsInHand = new List<GameObject>();
-    
-    void Start()
-    {
-    }
 
     public bool AddCardHand()
     {

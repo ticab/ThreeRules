@@ -6,7 +6,8 @@ public enum SceneName
     MainMenu,
     Game,
     Settings,
-    Rules
+    Rules,
+    GameOver
 }
 
 public class MainMenu : MonoBehaviour
@@ -25,9 +26,14 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(SceneName.Rules.ToString());
     }
 
-    public void RulesBack()
+    public void BackToMainMenu()
     {
         SceneManager.LoadScene(SceneName.MainMenu.ToString());
+    }
+
+    public void Settings()
+    {
+        SceneManager.LoadScene(SceneName.Settings.ToString());
     }
 
 }

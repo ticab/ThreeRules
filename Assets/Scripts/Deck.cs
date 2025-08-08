@@ -17,6 +17,12 @@ public class Deck : MonoBehaviour, IPointerClickHandler
         AddCardsToDeck();
     }
 
+    private void OnEnable()
+    {
+        for(int i=0; i<6; i++)
+            GameEvents.OnStartGame += DrawCard;
+    }
+
     private void AddCardsToDeck()
     {
         for (int i = 0; i < deckSize; i++)
@@ -34,6 +40,11 @@ public class Deck : MonoBehaviour, IPointerClickHandler
     }
 
     public void OnPointerClick(PointerEventData eventData)
+    {
+        DrawCard();
+    }
+
+    private void DrawCard()
     {
         if (handManager != null)
         {

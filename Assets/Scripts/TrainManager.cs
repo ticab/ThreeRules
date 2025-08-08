@@ -35,11 +35,9 @@ public class TrainManager : MonoBehaviour
     {
         int cardCount = cardsInTrain.Count;
 
-        Debug.Log("hor");
         for (int i = cardCount - 1; i >=0; i--)
         {
             float horizontalOffset = (cardSpacing * (i - (cardCount - 1) / 2f ) );
-            Debug.Log(i.ToString() + " -> " + horizontalOffset);
             cardsInTrain[i].transform.localPosition = new Vector3(horizontalOffset, 0f, 0f); 
             cardsInTrain[i].transform.SetSiblingIndex(cardCount - 1 - i);
         }

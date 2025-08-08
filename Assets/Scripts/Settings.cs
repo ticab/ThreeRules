@@ -1,16 +1,38 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Settings : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] private TMP_Text musicValue;
+
+    [SerializeField] private Slider SFXSlider;
+    [SerializeField] private TMP_Text SFXValue;
+
+    public void OnSliderMusicChanged()
     {
-        
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance.SetMusicVolume(musicSlider.value);
+            musicValue.text = Mathf.FloorToInt(musicSlider.value*100).ToString();
+        }
+        else
+        {
+            Debug.LogWarning("MusicManager instance not found!");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnSliderSFXChanged()
     {
-        
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance.SetSFXVolume(SFXSlider.value);
+            SFXValue.text = Mathf.FloorToInt(SFXSlider.value * 100).ToString();
+        }
+        else
+        {
+            Debug.LogWarning("MusicManager instance not found!");
+        }
     }
 }
