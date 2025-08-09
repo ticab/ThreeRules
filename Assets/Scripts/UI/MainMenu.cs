@@ -7,7 +7,8 @@ public enum SceneName
     Game,
     Settings,
     Rules,
-    GameOver
+    GameOver,
+    HighScores
 }
 
 public class MainMenu : MonoBehaviour
@@ -34,6 +35,11 @@ public class MainMenu : MonoBehaviour
     public void Settings()
     {
         SceneManager.LoadScene(SceneName.Settings.ToString());
+    }
+
+    public void HighScores()
+    {
+        SceneManager.LoadScene(SceneName.HighScores.ToString());
     }
 
 }

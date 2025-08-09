@@ -14,7 +14,7 @@ public class Timer : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEvents.OnStartGame += StartTimer;
+        EventSystem.OnStartGame += StartTimer;
     }
 
     private void StartTimer()

@@ -18,7 +18,7 @@ public class TrainManager : MonoBehaviour
     public void AddCard()
     {
         GameObject newCard = Instantiate(cardPrefab, trainTransform.position, Quaternion.identity, trainTransform);
-        CardDisplay cardComponent = newCard.GetComponent<CardDisplay>();
+        CardUI cardComponent = newCard.GetComponent<CardUI>();
         if (cardComponent != null)
         {
             cardComponent.ChangeColor(false);

@@ -5,8 +5,11 @@ public class MusicManager : MonoBehaviour
 {
     private static MusicManager instance; 
     [SerializeField] private AudioSource bgMusic;
+
+    [SerializeField] private AudioSource cardSFX;
     [SerializeField] private AudioSource missSFX;
     [SerializeField] private AudioSource hitSFX;
+    [SerializeField] private AudioSource drawSFX;
 
     [SerializeField] private AudioMixer mixer;
 
@@ -45,6 +48,22 @@ public class MusicManager : MonoBehaviour
         if (hitSFX != null)
         {
             hitSFX.Play();
+        }
+    }
+
+    public void PlayDrawSFX()
+    {
+        if (drawSFX != null)
+        {
+            drawSFX.Play();
+        }
+    }
+
+    public void PlayCardSFX()
+    {
+        if (cardSFX != null)
+        {
+            cardSFX.Play();
         }
     }
 

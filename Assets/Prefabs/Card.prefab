@@ -185,7 +185,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -24.1}
-  m_SizeDelta: {x: 40, y: 80}
+  m_SizeDelta: {x: 61, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7482759952116389519
 CanvasRenderer:
@@ -449,6 +449,7 @@ GameObject:
   - component: {fileID: 5293457559463154331}
   - component: {fileID: 6399411567885980303}
   - component: {fileID: 888490826553788741}
+  - component: {fileID: 7153361009633772430}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -550,10 +551,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abcc13d5eb38971408eb11807af77306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardBg: {fileID: 3004140123358862066}
   cardColor: {fileID: 291994773149409852}
   cardName: {fileID: 4915827463195727318}
-  CardImage: {fileID: 6154840116119891503}
-  rockSprite: {fileID: 3452003437791708593, guid: 818fc5c6d4734c447ad8d4ef597642b4, type: 3}
+  cardImage: {fileID: 6154840116119891503}
+  rockSprite: {fileID: -6960903314270103029, guid: 14d2f50270b59654f8761a347eb8784a, type: 3}
   paperSprite: {fileID: 2045492094208909694, guid: c7f5c760a15ba31428d73a45a78792e8, type: 3}
   scissorsSprite: {fileID: 6689946350199266671, guid: 7c790dd741a55904b90fbc29c88c2628, type: 3}
+--- !u!114 &7153361009633772430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7527991335759749564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1b28eaf57dab864cbd8041c68807cdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

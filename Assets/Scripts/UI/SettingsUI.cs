@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Settings : MonoBehaviour
+public class SettingsUI : MonoBehaviour
 {
     [SerializeField] private Slider musicSlider;
     [SerializeField] private TMP_Text musicValue;

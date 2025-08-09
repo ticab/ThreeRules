@@ -4,6 +4,6 @@ public class PlayGame : MonoBehaviour
 {
     void Start()
     {
-        GameEvents.TriggerCountdownStart();
+        EventSystem.TriggerCountdownStart();
     }
 }

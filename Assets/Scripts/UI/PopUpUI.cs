@@ -1,23 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PopUp : MonoBehaviour
+public class PopUpUI : MonoBehaviour
 {
-    public Image popUpImage;
-    public Sprite winSprite;
-    public Sprite loseSprite;
-    public Sprite drawSprite;
+    [SerializeField] private Image popUpImage;
+    [SerializeField] private Sprite winSprite;
+    [SerializeField] private Sprite loseSprite;
+    [SerializeField] private Sprite drawSprite;
 
     public enum PopUpType
     {
         Win,
         Lose,
         Draw
-    }
-
-    void Start()
-    {
-        
     }
 
     public void Setup(PopUpType type)

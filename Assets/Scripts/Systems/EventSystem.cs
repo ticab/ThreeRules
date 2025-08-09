@@ -1,11 +1,12 @@
 using System;
 
-public class GameEvents 
+public class EventSystem 
 {
     public static event Action OnPlay;
     public static event Action OnStartGame;
     public static event Action<int> OnScore;
     public static event Action<int> OnTimerFinished;
+    public static event Action OnHighScoresChanged;
 
     public static void TriggerCountdownStart()
     {
@@ -22,5 +23,9 @@ public class GameEvents
     public static void TriggerGameover(int finalScore)
     {
         OnTimerFinished?.Invoke(finalScore);
+    }
+    public static void TriggerHighScoresUI()
+    {
+        OnHighScoresChanged?.Invoke();
     }
 }

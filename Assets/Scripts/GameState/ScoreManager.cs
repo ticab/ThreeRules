@@ -13,7 +13,7 @@ public class ScoreManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEvents.OnScore += UpdateScore;
+        EventSystem.OnScore += UpdateScore;
     }
 
     private void UpdateScore(int amount)

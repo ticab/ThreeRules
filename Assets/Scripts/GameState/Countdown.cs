@@ -7,17 +7,17 @@ public class Countdown : MonoBehaviour
     [SerializeField] private TMP_Text countdownText;
     [SerializeField] private CanvasGroup canvasGroup;
 
-    private float numberDuration = 1f;
+    private float numberDuration = 0.6f;
     private Vector3 startScale = new Vector3(0.5f, 0.5f, 0.5f);
     private Vector3 endScale = new Vector3(1.5f, 1.5f, 1.5f);
     private void OnEnable()
     {
-        GameEvents.OnPlay += StartCountdown;
+        EventSystem.OnPlay += StartCountdown;
     }
 
     private void OnDisable()
     {
-        GameEvents.OnPlay -= StartCountdown;
+        EventSystem.OnPlay -= StartCountdown;
     }
 
     public void StartCountdown()
@@ -41,12 +41,11 @@ public class Countdown : MonoBehaviour
         canvasGroup.alpha = 1f;
 
 
-        GameEvents.TriggerGameStart();
+        EventSystem.TriggerGameStart();
     }
 
     private IEnumerator AnimateNumber(string text)
     {
-        Debug.Log(text);
         countdownText.text = text;
         transform.localScale = startScale;
         canvasGroup.alpha = 1f;

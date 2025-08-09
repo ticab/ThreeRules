@@ -20,7 +20,7 @@ public class Deck : MonoBehaviour, IPointerClickHandler
     private void OnEnable()
     {
         for(int i=0; i<6; i++)
-            GameEvents.OnStartGame += DrawCard;
+            EventSystem.OnStartGame += DrawCard;
     }
 
     private void AddCardsToDeck()
@@ -31,12 +31,6 @@ public class Deck : MonoBehaviour, IPointerClickHandler
             deckOfCards.Add(newCard);
         }
         ArrangeDeck();
-    }
-
-
-    void Update()
-    {
-        
     }
 
     public void OnPointerClick(PointerEventData eventData)

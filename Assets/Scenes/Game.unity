@@ -256,6 +256,7 @@ RectTransform:
   - {fileID: 853397227}
   - {fileID: 164469733}
   - {fileID: 1494051595}
+  - {fileID: 768317389}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -592,6 +593,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 7527991335759749564, guid: d430ad1cb7969e141a47069593fbef63, type: 3}
   handTransform: {fileID: 1679715036}
+  cardsInHand: []
 --- !u!1 &454524889
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,10 +1013,59 @@ MonoBehaviour:
   m_GameObject: {fileID: 662293078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9a4475b785cd6548996577a6c5e105a, type: 3}
+  m_Script: {fileID: 11500000, guid: d64dd53d3f36c1149a2992278c450c1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCards: 5
+  maxCards: 4
+  gameplayManager: {fileID: 768317390}
+--- !u!1 &768317388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 768317389}
+  - component: {fileID: 768317390}
+  m_Layer: 5
+  m_Name: GameplayManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &768317389
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768317388}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 39523586}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &768317390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768317388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc18aedb7cf78bb4ca7467da609c2d46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   handManager: {fileID: 434299662}
   trainManager: {fileID: 1493380983}
   battleCardPosition: {fileID: 30855803}
@@ -1039,7 +1090,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 579877231}
   timerImage: {fileID: 1938660920}
-  scoreManager: {fileID: 1494051596}
 --- !u!1001 &853397226
 PrefabInstance:
   m_ObjectHideFlags: 0

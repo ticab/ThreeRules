@@ -1,32 +1,35 @@
-using System;
 using System.Collections.Generic;
-using NUnit.Framework;
 using UnityEngine;
 
 public class HandManager : MonoBehaviour
 {
-    public GameObject cardPrefab;
-    public Transform handTransform;
+    [SerializeField] private GameObject cardPrefab;
+    [SerializeField] private Transform handTransform;
+    [SerializeField] private List<GameObject> cardsInHand = new List<GameObject>();
+    
     private float fanSpread = -7.5f;
     private float cardSpacing = 200f;
     private float verticalSpacing = 70f;
-    private List<GameObject> cardsInHand = new List<GameObject>();
-
+    private int maxCards = 6;
     public bool AddCardHand()
     {
-        if(cardsInHand.Count == 6)
+        if(cardsInHand.Count >= maxCards)
             return false;
 
+        if (cardPrefab == null || handTransform == null) return false;
+
         GameObject newCard = Instantiate(cardPrefab, handTransform.position, Quaternion.identity, handTransform);
-        CardDisplay cardComponent = newCard.GetComponent<CardDisplay>();
+
+        CardUI cardComponent = newCard.GetComponent<CardUI>();
         if (cardComponent != null)
         {
             cardComponent.ChangeColor(true);
-            cardComponent.setIsDraggable(true);
         }
-        else
+
+        CardDrag dragComponent = newCard.GetComponent<CardDrag>();
+        if (dragComponent != null)
         {
-            Debug.LogWarning("Card component not found on the instantiated prefab.");
+            dragComponent.SetDraggable(true);
         }
 
         cardsInHand.Add(newCard);
@@ -44,8 +47,8 @@ public class HandManager : MonoBehaviour
 
         if (cardCount == 1)
         {
-            cardsInHand[0].transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-            cardsInHand[0].transform.localPosition = new Vector3(0f, 0f, 0f);
+            cardsInHand[0].transform.localRotation = Quaternion.identity;
+            cardsInHand[0].transform.localPosition = Vector3.zero;
             return;
         }
 

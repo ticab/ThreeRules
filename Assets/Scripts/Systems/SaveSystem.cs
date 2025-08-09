@@ -3,6 +3,7 @@ using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
 
+[Serializable]
 public struct PlayScore
 {
     public int Score;
@@ -16,7 +17,7 @@ public struct PlayScore
 }
 
 [Serializable]
-public class HighScores
+public class HighScoresData
 {
     public List<PlayScore> scores = new List<PlayScore>();
 }
@@ -25,7 +26,6 @@ public static class SaveSystem
 {
     private static string filePath = Path.Combine(Application.persistentDataPath, "scores.dat");
     
-
     public static List<PlayScore> LoadScores()
     {
         if (!File.Exists(filePath))
@@ -34,7 +34,7 @@ public static class SaveSystem
         try
         {
             string json = File.ReadAllText(filePath);
-            HighScores data = JsonUtility.FromJson<HighScores>(json);
+            HighScoresData data = JsonUtility.FromJson<HighScoresData>(json);
             return data.scores;
         }
         catch
@@ -48,20 +48,44 @@ public static class SaveSystem
     {
         List<PlayScore> scores = LoadScores();
 
-        int index = scores.FindIndex(s => score > s.Score);
-
-        if (index != -1)
+        if (scores.Count == 0)
         {
-            scores.Insert(index, new PlayScore(playerName, score));
+            scores.Add(new PlayScore(playerName, score));
+        }
+        else
+        {
+            int index = scores.FindIndex(s => score > s.Score);
 
-            // Keep only top 5
-            if (scores.Count > 5)
-                scores.RemoveAt(5);
+            if (index != -1)
+            {
+                scores.Insert(index, new PlayScore(playerName, score));
+
+                // Keep only top 5
+                if (scores.Count > 5)
+                    scores.RemoveAt(5);
+            }
+            else return;
         }
 
-        HighScores highScores = new HighScores { scores = scores };
+        HighScoresData highScores = new HighScoresData { scores = scores };
 
         string json = JsonUtility.ToJson(highScores);
         File.WriteAllText(filePath, json);
+
+
+        EventSystem.TriggerHighScoresUI();
+    }
+
+    public static bool ShouldWrite(int score)
+    {
+        List<PlayScore> scores = LoadScores();
+
+        int index = scores.FindIndex(s => score > s.Score);
+
+        Debug.Log("index: " + index);
+
+        if (index != -1 || scores.Count == 0) return true;
+
+        return false;
     }
 }

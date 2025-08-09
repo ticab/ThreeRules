@@ -2,12 +2,13 @@ using UnityEngine;
 
 public static class BattleOutcome
 {
-    public static PopUp.PopUpType DetermineOutcome(CardType enemy, CardType user)
+    public static PopUpUI.PopUpType DetermineOutcome(CardType enemy, CardType user)
     {
         if (enemy == user)
         {
-            GameEvents.TriggerScore(10);
-            return PopUp.PopUpType.Draw;
+            MusicManager.Instance.PlayDrawSFX();
+            EventSystem.TriggerScore(10);
+            return PopUpUI.PopUpType.Draw;
         }
 
         if ((enemy == CardType.Rock && user == CardType.Paper) ||
@@ -15,12 +16,12 @@ public static class BattleOutcome
             (enemy == CardType.Scissors && user == CardType.Rock))
         {
             MusicManager.Instance.PlayHitSFX();
-            GameEvents.TriggerScore(20);
-            return PopUp.PopUpType.Win;
+            EventSystem.TriggerScore(20);
+            return PopUpUI.PopUpType.Win;
         }
 
-        GameEvents.TriggerScore(-10);
+        EventSystem.TriggerScore(-10);
         MusicManager.Instance.PlayMissSFX();
-        return PopUp.PopUpType.Lose;
+        return PopUpUI.PopUpType.Lose;
     }
 }
