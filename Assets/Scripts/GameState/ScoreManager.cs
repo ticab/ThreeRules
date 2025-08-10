@@ -16,6 +16,11 @@ public class ScoreManager : MonoBehaviour
         EventSystem.OnScore += UpdateScore;
     }
 
+    private void OnDisable()
+    {
+        EventSystem.OnScore -= UpdateScore;
+    }
+
     private void UpdateScore(int amount)
     {
         score = Mathf.Max(0, score + amount);

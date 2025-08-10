@@ -8,13 +8,17 @@ public class Timer : MonoBehaviour
     public TMP_Text timerText;
     public Image timerImage;
 
-    private float totalTime = 10f;
+    private float totalTime = 60f;
     private float timeRemaining;
     private bool timerStarted = false;
 
     private void OnEnable()
     {
         EventSystem.OnStartGame += StartTimer;
+    }
+    private void OnDisable()
+    {
+        EventSystem.OnStartGame -= StartTimer;
     }
 
     private void StartTimer()

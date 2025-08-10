@@ -10,12 +10,8 @@ public class HandManager : MonoBehaviour
     private float fanSpread = -7.5f;
     private float cardSpacing = 200f;
     private float verticalSpacing = 70f;
-    private int maxCards = 6;
-    public bool AddCardHand()
+    public bool AddCardToHand(CardType cardType)
     {
-        if(cardsInHand.Count >= maxCards)
-            return false;
-
         if (cardPrefab == null || handTransform == null) return false;
 
         GameObject newCard = Instantiate(cardPrefab, handTransform.position, Quaternion.identity, handTransform);
@@ -23,7 +19,8 @@ public class HandManager : MonoBehaviour
         CardUI cardComponent = newCard.GetComponent<CardUI>();
         if (cardComponent != null)
         {
-            cardComponent.ChangeColor(true);
+            bool boosterActive = Random.value < 0.2f;   // 20% chance it's a booster
+            cardComponent.UpdateCardVisual(cardType, false, boosterActive);
         }
 
         CardDrag dragComponent = newCard.GetComponent<CardDrag>();
@@ -40,6 +37,12 @@ public class HandManager : MonoBehaviour
     public void RemoveCard(GameObject card)
     {
         cardsInHand.Remove(card);
+
+        // add new cards if that was last one in Hand
+        if(cardsInHand.Count == 0)
+        {
+            EventSystem.TriggerEmptyHand();
+        }
     }
     private void UpdateHandVisuals()
     {

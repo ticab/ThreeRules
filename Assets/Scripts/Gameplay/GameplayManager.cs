@@ -21,6 +21,7 @@ public class GameplayManager : MonoBehaviour
         // remove card from hand and add it to drop zone
         handManager.RemoveCard(droppedObj);
         droppedObj.transform.SetParent(dropZone);
+        
 
         // get first card from train
         GameObject trainCardObject = trainManager.GetFirstCard();
@@ -41,7 +42,7 @@ public class GameplayManager : MonoBehaviour
         yield return StartCoroutine(RunAnimations(trainCardObject.transform, droppedObj.transform, battleCardPosition.transform.position));
 
         // pop up the result
-        yield return StartCoroutine(ShowPopUp(trainCard.CardType, cardComponent.CardType));
+        yield return StartCoroutine(ShowPopUp(trainCard.CardType, cardComponent));
 
         ResetCards(trainCardObject, droppedObj);
     }
@@ -55,7 +56,7 @@ public class GameplayManager : MonoBehaviour
         yield return wiggleDropped;
     }
 
-    private IEnumerator ShowPopUp(CardType enemy, CardType user, float duration = 0.7f)
+    private IEnumerator ShowPopUp(CardType enemy, CardUI user, float duration = 0.7f)
     {
         GameObject popUp = Instantiate(popupPrefab, popUpPosition.position, Quaternion.identity, popUpPosition);
 

@@ -2,21 +2,22 @@ using UnityEngine;
 
 public static class BattleOutcome
 {
-    public static PopUpUI.PopUpType DetermineOutcome(CardType enemy, CardType user)
+    public static PopUpUI.PopUpType DetermineOutcome(CardType enemy, CardUI user)
     {
-        if (enemy == user)
+        CardType userCard = user.CardType;
+        if (enemy == userCard)
         {
             MusicManager.Instance.PlayDrawSFX();
             EventSystem.TriggerScore(10);
             return PopUpUI.PopUpType.Draw;
         }
 
-        if ((enemy == CardType.Rock && user == CardType.Paper) ||
-            (enemy == CardType.Paper && user == CardType.Scissors) ||
-            (enemy == CardType.Scissors && user == CardType.Rock))
+        if ((enemy == CardType.Rock && userCard == CardType.Paper) ||
+            (enemy == CardType.Paper && userCard == CardType.Scissors) ||
+            (enemy == CardType.Scissors && userCard == CardType.Rock))
         {
             MusicManager.Instance.PlayHitSFX();
-            EventSystem.TriggerScore(20);
+            EventSystem.TriggerScore(user.IsBooster ? 35 : 20);
             return PopUpUI.PopUpType.Win;
         }
 

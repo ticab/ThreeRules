@@ -21,7 +21,8 @@ public class TrainManager : MonoBehaviour
         CardUI cardComponent = newCard.GetComponent<CardUI>();
         if (cardComponent != null)
         {
-            cardComponent.ChangeColor(false);
+            CardType cardType = (CardType) Random.Range(0, System.Enum.GetValues(typeof(CardType)).Length);
+            cardComponent.UpdateCardVisual(cardType, true);
         }
         else
         {

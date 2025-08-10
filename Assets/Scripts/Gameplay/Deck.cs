@@ -1,14 +1,20 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class Deck : MonoBehaviour, IPointerClickHandler
+public class Deck : MonoBehaviour
 {
     public HandManager handManager;
     private List<GameObject> deckOfCards = new List<GameObject>();
-    private int deckSize = 52;
+    private List<CardType> cardTypes = new List<CardType>();
+
+    private static System.Random rng = new System.Random();
+
+    private int deckSize = 60;
     private float cardStackOffset = 0.3f;
+    private int maxCards = 6;
+    private float dealTime = 0.2f;
 
     public GameObject deckCardPrefab;
 
@@ -19,12 +25,23 @@ public class Deck : MonoBehaviour, IPointerClickHandler
 
     private void OnEnable()
     {
-        for(int i=0; i<6; i++)
-            EventSystem.OnStartGame += DrawCard;
+        EventSystem.OnStartGame += DealHand;
+        EventSystem.OnHandEmptied += DealHand;
+    }
+    private void OnDisable()
+    {
+        EventSystem.OnStartGame -= DealHand;
+        EventSystem.OnHandEmptied -= DealHand;
     }
 
     private void AddCardsToDeck()
     {
+        for (int i = 0; i < deckSize/3; i++) cardTypes.Add(CardType.Rock);
+        for (int i = 0; i < deckSize/3; i++) cardTypes.Add(CardType.Paper);
+        for (int i = 0; i < deckSize/3; i++) cardTypes.Add(CardType.Scissors);
+
+        Shuffle(cardTypes);
+
         for (int i = 0; i < deckSize; i++)
         {
             GameObject newCard = Instantiate(deckCardPrefab, transform);
@@ -33,9 +50,28 @@ public class Deck : MonoBehaviour, IPointerClickHandler
         ArrangeDeck();
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    private void Shuffle<T>(List<T> list)
     {
-        DrawCard();
+        for(int i = list.Count - 1; i > 0; i--)
+        {
+            int rnd = rng.Next(0, i+1);
+            (list[i], list[rnd]) = (list[rnd], list[i]);
+        }
+    }
+
+    private void DealHand()
+    {
+        StartCoroutine(DealHandCoroutine());
+    }
+
+    private IEnumerator DealHandCoroutine()
+    {
+        for (int i = 0; i < maxCards; i++)
+        {
+            DrawCard();
+            MusicManager.Instance.PlayCardSFX();
+            yield return new WaitForSeconds(dealTime);
+        }
     }
 
     private void DrawCard()
@@ -45,10 +81,11 @@ public class Deck : MonoBehaviour, IPointerClickHandler
             // Draw top card
             if (deckOfCards.Count > 0)
             {
-                if (handManager.AddCardHand())
+                int lastIndex = deckOfCards.Count - 1;
+                if (handManager.AddCardToHand(cardTypes[lastIndex]))
                 {
-                    GameObject topCard = deckOfCards[deckOfCards.Count - 1];
-                    deckOfCards.RemoveAt(deckOfCards.Count - 1);
+                    GameObject topCard = deckOfCards[lastIndex];
+                    deckOfCards.RemoveAt(lastIndex);
                     Destroy(topCard);
                 }
             }
