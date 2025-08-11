@@ -10,11 +10,22 @@ public class SettingsUI : MonoBehaviour
     [SerializeField] private Slider SFXSlider;
     [SerializeField] private TMP_Text SFXValue;
 
+    [SerializeField] private Toggle showTutorial;
+
+    private void Start()
+    {
+        if (!SaveSystem.IsTutorialCompleted())
+        {
+            // default: unchecked
+            showTutorial.isOn = true;
+        }
+    }
+
     public void OnSliderMusicChanged()
     {
-        if (MusicManager.Instance != null)
+        if (MusicSystem.Instance != null)
         {
-            MusicManager.Instance.SetMusicVolume(musicSlider.value);
+            MusicSystem.Instance.SetMusicVolume(musicSlider.value);
             musicValue.text = Mathf.FloorToInt(musicSlider.value*100).ToString();
         }
         else
@@ -25,14 +36,18 @@ public class SettingsUI : MonoBehaviour
 
     public void OnSliderSFXChanged()
     {
-        if (MusicManager.Instance != null)
+        if (MusicSystem.Instance != null)
         {
-            MusicManager.Instance.SetSFXVolume(SFXSlider.value);
+            MusicSystem.Instance.SetSFXVolume(SFXSlider.value);
             SFXValue.text = Mathf.FloorToInt(SFXSlider.value * 100).ToString();
         }
         else
         {
             Debug.LogWarning("MusicManager instance not found!");
         }
+    }
+    public void ResetTutorial()
+    {
+        SaveSystem.SaveTutorialCompleted(!showTutorial.isOn);
     }
 }

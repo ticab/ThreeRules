@@ -40,8 +40,7 @@ public class Countdown : MonoBehaviour
         countdownText.gameObject.SetActive(false);
         canvasGroup.alpha = 1f;
 
-
-        EventSystem.TriggerGameStart();
+        EventSystem.TriggerTutorial();
     }
 
     private IEnumerator AnimateNumber(string text)

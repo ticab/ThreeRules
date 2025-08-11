@@ -20,6 +20,7 @@ public struct PlayScore
 public class HighScoresData
 {
     public List<PlayScore> scores = new List<PlayScore>();
+    public bool tutorialCompleted;
 }
 
 public static class SaveSystem
@@ -42,6 +43,34 @@ public static class SaveSystem
             Debug.LogWarning("Failed to load scores.");
             return new List<PlayScore>();
         }
+    }
+
+    public static bool IsTutorialCompleted()
+    {
+        if (!File.Exists(filePath))
+            return false;
+
+        try
+        {
+            string json = File.ReadAllText(filePath);
+            HighScoresData data = JsonUtility.FromJson<HighScoresData>(json);
+            return data.tutorialCompleted;
+        }
+        catch
+        {
+            Debug.LogWarning("Failed to load save file");
+            return false;
+        }
+    }
+
+    public static void SaveTutorialCompleted(bool isComplited)
+    {
+        List<PlayScore> scores = LoadScores();
+
+        HighScoresData highScores = new HighScoresData { scores = scores, tutorialCompleted = isComplited };
+
+        string json = JsonUtility.ToJson(highScores);
+        File.WriteAllText(filePath, json);
     }
 
     public static void SaveScore(int score, string playerName)
@@ -67,11 +96,10 @@ public static class SaveSystem
             else return;
         }
 
-        HighScoresData highScores = new HighScoresData { scores = scores };
+        HighScoresData highScores = new HighScoresData { scores = scores, tutorialCompleted = IsTutorialCompleted() };
 
         string json = JsonUtility.ToJson(highScores);
         File.WriteAllText(filePath, json);
-
 
         EventSystem.TriggerHighScoresUI();
     }

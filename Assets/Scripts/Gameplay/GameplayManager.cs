@@ -7,6 +7,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private HandManager handManager;
     [SerializeField] private TrainManager trainManager;
     [SerializeField] private Transform battleCardPosition;
+    [SerializeField] private TutorialManager tutorialManager;
 
     [SerializeField] private Transform popUpPosition;
     [SerializeField] private GameObject popupPrefab;
@@ -17,6 +18,11 @@ public class GameplayManager : MonoBehaviour
         CardDrag dragComponent = droppedObj.GetComponent<CardDrag>();
         CardUI cardComponent = droppedObj.GetComponent<CardUI>();
         if (dragComponent == null || !dragComponent.IsDraggable || cardComponent == null) return;
+
+        if (tutorialManager.IsTutorialActive)
+        {
+            tutorialManager.EndTutorial();
+        }
 
         // remove card from hand and add it to drop zone
         handManager.RemoveCard(droppedObj);

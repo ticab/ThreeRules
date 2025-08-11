@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class MusicManager : MonoBehaviour
+public class MusicSystem : MonoBehaviour
 {
-    private static MusicManager instance; 
+    private static MusicSystem instance; 
     [SerializeField] private AudioSource bgMusic;
 
     [SerializeField] private AudioSource cardSFX;
@@ -13,7 +13,7 @@ public class MusicManager : MonoBehaviour
 
     [SerializeField] private AudioMixer mixer;
 
-    public static MusicManager Instance => instance;
+    public static MusicSystem Instance => instance;
 
     private void Awake()
     {
@@ -69,6 +69,9 @@ public class MusicManager : MonoBehaviour
 
     public void SetSFXVolume(float volume)
     {
-        mixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
+        if (volume <= 0f)
+            mixer.SetFloat("SFX", -80f);
+        else
+            mixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
     }
 }

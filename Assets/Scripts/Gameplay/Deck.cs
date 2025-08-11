@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Deck : MonoBehaviour
 {
@@ -25,12 +26,12 @@ public class Deck : MonoBehaviour
 
     private void OnEnable()
     {
-        EventSystem.OnStartGame += DealHand;
+        EventSystem.OnStartTutorial += DealHand;
         EventSystem.OnHandEmptied += DealHand;
     }
     private void OnDisable()
     {
-        EventSystem.OnStartGame -= DealHand;
+        EventSystem.OnStartTutorial -= DealHand;
         EventSystem.OnHandEmptied -= DealHand;
     }
 
@@ -69,7 +70,7 @@ public class Deck : MonoBehaviour
         for (int i = 0; i < maxCards; i++)
         {
             DrawCard();
-            MusicManager.Instance.PlayCardSFX();
+            MusicSystem.Instance.PlayCardSFX();
             yield return new WaitForSeconds(dealTime);
         }
     }
@@ -88,6 +89,10 @@ public class Deck : MonoBehaviour
                     deckOfCards.RemoveAt(lastIndex);
                     Destroy(topCard);
                 }
+            }
+            else
+            {
+                SceneManager.LoadScene(SceneName.GameOver.ToString());
             }
         }
     }

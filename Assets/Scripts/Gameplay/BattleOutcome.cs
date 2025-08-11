@@ -7,7 +7,7 @@ public static class BattleOutcome
         CardType userCard = user.CardType;
         if (enemy == userCard)
         {
-            MusicManager.Instance.PlayDrawSFX();
+            MusicSystem.Instance.PlayDrawSFX();
             EventSystem.TriggerScore(10);
             return PopUpUI.PopUpType.Draw;
         }
@@ -16,13 +16,13 @@ public static class BattleOutcome
             (enemy == CardType.Paper && userCard == CardType.Scissors) ||
             (enemy == CardType.Scissors && userCard == CardType.Rock))
         {
-            MusicManager.Instance.PlayHitSFX();
+            MusicSystem.Instance.PlayHitSFX();
             EventSystem.TriggerScore(user.IsBooster ? 35 : 20);
             return PopUpUI.PopUpType.Win;
         }
 
         EventSystem.TriggerScore(-10);
-        MusicManager.Instance.PlayMissSFX();
+        MusicSystem.Instance.PlayMissSFX();
         return PopUpUI.PopUpType.Lose;
     }
 }

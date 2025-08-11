@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public class DropZoneUI : MonoBehaviour, IDropHandler
 {
-    [SerializeField] private int maxCards = 4;
+    [SerializeField] private int maxCards = 3;
 
     [SerializeField] private GameplayManager gameplayManager;
 

@@ -8,6 +8,7 @@ public class EventSystem
     public static event Action<int> OnTimerFinished;
     public static event Action OnHighScoresChanged;
     public static event Action OnHandEmptied;
+    public static event Action OnStartTutorial;
 
     public static void TriggerCountdownStart()
     {
@@ -29,5 +30,10 @@ public class EventSystem
     public static void TriggerEmptyHand()
     {
         OnHandEmptied?.Invoke();
+    }
+
+    public static void TriggerTutorial()
+    {
+        OnStartTutorial?.Invoke();
     }
 }

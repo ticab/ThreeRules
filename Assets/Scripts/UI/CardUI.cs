@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class CardUI : MonoBehaviour
 {
     [Header("UI References")]
+    [SerializeField] private Image cardBg;
     [SerializeField] private Image cardColor;
     [SerializeField] private TMP_Text cardName;
     [SerializeField] private Image cardImage;
